@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Daily Bread">
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+    <title>Daily Bread - Bible Verse</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: linear-gradient(180deg, 
+                rgba(245, 222, 179, 0.4) 0%, 
+                rgba(255, 248, 220, 0.6) 50%, 
+                rgba(245, 222, 179, 0.4) 100%),
+                repeating-linear-gradient(90deg,
+                    #f5deb3 0px,
+                    #f0e68c 2px,
+                    #daa520 3px,
+                    #f5deb3 4px,
+                    #fff8dc 8px,
+                    #f5deb3 12px
+                );
+            background-size: 100% 100%, 4px 100%;
+            animation: wheat-sway 3s ease-in-out infinite;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            -webkit-font-smoothing: antialiased;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        /* Top books */
+        body::after {
+            content: 'Genesis • Exodus • Leviticus • Numbers • Deuteronomy • Joshua • Judges • Ruth • 1 Samuel • 2 Samuel • 1 Kings • 2 Kings • 1 Chronicles • 2 Chronicles • Ezra • Nehemiah • Esther';
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 95%;
+            max-width: 550px;
+            text-align: center;
+            font-size: 9px;
+            color: rgba(139, 115, 85, 0.5);
+            font-family: 'Cinzel', serif;
+            pointer-events: none;
+            z-index: 0;
+            line-height: 1.4;
+        }
+        
+        .bible-books-left {
+            position: fixed;
+            left: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 80px;
+            text-align: center;
+            font-size: 9px;
+            color: rgba(139, 115, 85, 0.5);
+            font-family: 'Cinzel', serif;
+            pointer-events: none;
+            z-index: 0;
+            line-height: 1.5;
+        }
+        
+        .bible-books-right {
+            position: fixed;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 80px;
+            text-align: center;
+            font-size: 9px;
+            color: rgba(139, 115, 85, 0.5);
+            font-family: 'Cinzel', serif;
+            pointer-events: none;
+            z-index: 0;
+            line-height: 1.5;
+        }
+        
+        .bible-books-bottom {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 95%;
+            max-width: 550px;
+            text-align: center;
+            font-size: 9px;
+            color: rgba(139, 115, 85, 0.5);
+            font-family: 'Cinzel', serif;
+            pointer-events: none;
+            z-index: 0;
+            line-height: 1.4;
+        }
+
+        @keyframes wheat-sway {
+            0%, 100% {
+                background-position: 0 0, 0 0;
+            }
+            50% {
+                background-position: 0 0, 2px 0;
+            }
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background: rgba(245, 238, 220, 0.95);
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border: 3px solid #0C4B33;
+            position: relative;
+            z-index: 1;
+        }
+
+        .app-title {
+            font-size: 28px;
+            color: #5a4a3a;
+            margin-bottom: 30px;
+            font-weight: normal;
+            letter-spacing: 1px;
+        }
+
+        .verse-container {
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-bottom: 30px;
+            padding: 30px;
+            background: linear-gradient(135deg, 
+                rgba(250, 245, 230, 0.98) 0%, 
+                rgba(245, 238, 220, 0.98) 100%),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300"><g opacity="0.08" fill="%23654321"><path d="M100 20 L100 280 M40 150 L160 150"/><rect x="85" y="5" width="30" height="290" rx="5"/><rect x="25" y="135" width="150" height="30" rx="5"/><circle cx="100" cy="150" r="25" fill="none" stroke="%23654321" stroke-width="4"/></g></svg>');
+            background-size: 100% 100%, 60% auto;
+            background-position: center, center;
+            background-repeat: no-repeat;
+            border-radius: 15px;
+            border: 2px solid #d4c4a8;
+            box-shadow: 
+                inset 0 2px 10px rgba(139, 115, 85, 0.1),
+                0 5px 20px rgba(0, 0, 0, 0.08);
+            position: relative;
+        }
+        
+        .verse-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(139, 115, 85, 0.03) 2px,
+                    rgba(139, 115, 85, 0.03) 4px
+                );
+            pointer-events: none;
+            border-radius: 15px;
+        }
+
+        .verse-reference {
+            font-size: 22px;
+            font-weight: 600;
+            color: #3a2a1a;
+            margin-bottom: 25px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: 'Cinzel', serif;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .verse-text {
+            font-size: 19px;
+            line-height: 1.9;
+            color: #2a2a2a;
+            font-style: normal;
+            margin-bottom: 15px;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 0.3px;
+            text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.1);
+            font-weight: 400;
+        }
+
+        .verse-citation {
+            font-size: 14px;
+            color: #8a7a6a;
+            font-style: normal;
+            margin-top: 10px;
+        }
+
+        .placeholder-text {
+            font-size: 18px;
+            color: #8a7a6a;
+            font-family: 'Cinzel', serif;
+            font-style: normal;
+            letter-spacing: 0.5px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #8b7355 0%, #6b5345 100%);
+            color: white;
+            border: none;
+            padding: 18px 45px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 20px rgba(107, 83, 69, 0.3);
+            transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        button:active {
+            transform: scale(0.95);
+            box-shadow: 0 3px 15px rgba(107, 83, 69, 0.4);
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #9b8365 0%, #7b6355 100%);
+        }
+
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            .app-title {
+                font-size: 24px;
+            }
+            
+            .verse-reference {
+                font-size: 18px;
+            }
+            
+            .verse-text {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bible-books-left">Job<br>Psalms<br>Proverbs<br>Ecclesiastes<br>Song of<br>Solomon<br>Isaiah<br>Jeremiah<br>Lamentations<br>Ezekiel<br>Daniel<br>Hosea<br>Joel<br>Amos</div>
+    <div class="bible-books-right">Obadiah<br>Jonah<br>Micah<br>Nahum<br>Habakkuk<br>Zephaniah<br>Haggai<br>Zechariah<br>Malachi<br>Matthew<br>Mark<br>Luke<br>John<br>Acts</div>
+    <div class="bible-books-bottom">Romans • 1 Corinthians • 2 Corinthians • Galatians • Ephesians • Philippians • Colossians • 1 Thessalonians • 2 Thessalonians • 1 Timothy • 2 Timothy • Titus • Philemon • Hebrews • James • 1 Peter • 2 Peter • 1 John • 2 John • 3 John • Jude • Revelation</div>
+    
+    <div class="container">
+        <h1 class="app-title">✟ Daily Bread</h1>
+        
+        <div class="verse-container" id="verseContainer">
+            <p class="placeholder-text">Press the button below to receive God's Word</p>
+        </div>
+        
+        <button id="verseButton" onclick="getVerse()">Hear the Word</button>
+        
+        <div style="margin-top: 30px; padding-top: 25px; border-top: 1px solid rgba(139, 115, 85, 0.2);">
+            <a href="https://give.globalchristianrelief.org/give/474026/?gad_source=1&gad_campaignid=19915388089&gbraid=0AAAAApM2jZeHSJiJ4J2fissxJ_VoAuZQu&gclid=CjwKCAiAqKbMBhBmEiwAZ3UboG2_lIWqDAf9i0hD_NC13Y1hGoIWJvJbDXCr6O3m_JucXCukzM3Q-xoC_XQQAvD_BwE#!/donation/checkout?utm_source=paid&utm_medium=search&c_src=2502SRP5&c_src2=2502SRP5-SRP1" target="_blank" style="
+                display: inline-block;
+                background: linear-gradient(135deg, #0C4B33 0%, #084028 100%);
+                color: white;
+                text-decoration: none;
+                padding: 12px 30px;
+                font-size: 14px;
+                border-radius: 25px;
+                font-family: 'Cinzel', serif;
+                letter-spacing: 0.5px;
+                box-shadow: 0 3px 15px rgba(12, 75, 51, 0.3);
+                transition: all 0.3s ease;
+            " onmouseover="this.style.background='linear-gradient(135deg, #0f5c3f 0%, #0a4d31 100%)'" onmouseout="this.style.background='linear-gradient(135deg, #0C4B33 0%, #084028 100%)'">
+                ✦ Support the Ministry ✦
+            </a>
+            <p style="
+                margin-top: 12px;
+                font-size: 11px;
+                color: #8a7a6a;
+                font-family: 'Cinzel', serif;
+                font-style: italic;
+            ">"Give, and it will be given to you" - Luke 6:38</p>
+        </div>
+    </div>
+
+    <script>
+        // Collection of NIV Bible verses
+        const verses = [
+            // Old Testament - Genesis
+            { reference: "Genesis 1:1", text: "In the beginning God created the heavens and the earth.", testament: "Old" },
+            { reference: "Genesis 1:27", text: "So God created mankind in his own image, in the image of God he created them; male and female he created them.", testament: "Old" },
+            { reference: "Genesis 2:24", text: "That is why a man leaves his father and mother and is united to his wife, and they become one flesh.", testament: "Old" },
+            { reference: "Genesis 12:2", text: "I will make you into a great nation, and I will bless you; I will make your name great, and you will be a blessing.", testament: "Old" },
+            { reference: "Genesis 50:20", text: "You intended to harm me, but God intended it for good to accomplish what is now being done, the saving of many lives.", testament: "Old" },
+            
+            // Exodus
+            { reference: "Exodus 14:14", text: "The Lord will fight for you; you need only to be still.", testament: "Old" },
+            { reference: "Exodus 15:2", text: "The Lord is my strength and my defense; he has become my salvation. He is my God, and I will praise him, my father's God, and I will exalt him.", testament: "Old" },
+            { reference: "Exodus 20:12", text: "Honor your father and your mother, so that you may live long in the land the Lord your God is giving you.", testament: "Old" },
+            { reference: "Exodus 33:14", text: "The Lord replied, My Presence will go with you, and I will give you rest.", testament: "Old" },
+            
+            // Leviticus
+            { reference: "Leviticus 19:18", text: "Do not seek revenge or bear a grudge against anyone among your people, but love your neighbor as yourself. I am the Lord.", testament: "Old" },
+            
+            // Numbers
+            { reference: "Numbers 6:24-26", text: "The Lord bless you and keep you; the Lord make his face shine on you and be gracious to you; the Lord turn his face toward you and give you peace.", testament: "Old" },
+            { reference: "Numbers 23:19", text: "God is not human, that he should lie, not a human being, that he should change his mind. Does he speak and then not act? Does he promise and not fulfill?", testament: "Old" },
+            
+            // Deuteronomy
+            { reference: "Deuteronomy 6:5", text: "Love the Lord your God with all your heart and with all your soul and with all your strength.", testament: "Old" },
+            { reference: "Deuteronomy 7:9", text: "Know therefore that the Lord your God is God; he is the faithful God, keeping his covenant of love to a thousand generations of those who love him and keep his commandments.", testament: "Old" },
+            { reference: "Deuteronomy 31:6", text: "Be strong and courageous. Do not be afraid or terrified because of them, for the Lord your God goes with you; he will never leave you nor forsake you.", testament: "Old" },
+            { reference: "Deuteronomy 31:8", text: "The Lord himself goes before you and will be with you; he will never leave you nor forsake you. Do not be afraid; do not be discouraged.", testament: "Old" },
+            
+            // Joshua
+            { reference: "Joshua 1:9", text: "Have I not commanded you? Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go.", testament: "Old" },
+            { reference: "Joshua 24:15", text: "But as for me and my household, we will serve the Lord.", testament: "Old" },
+            
+            // 1 Samuel
+            { reference: "1 Samuel 16:7", text: "The Lord does not look at the things people look at. People look at the outward appearance, but the Lord looks at the heart.", testament: "Old" },
+            
+            // 2 Chronicles
+            { reference: "2 Chronicles 7:14", text: "If my people, who are called by my name, will humble themselves and pray and seek my face and turn from their wicked ways, then I will hear from heaven, and I will forgive their sin and will heal their land.", testament: "Old" },
+            { reference: "2 Chronicles 16:9", text: "For the eyes of the Lord range throughout the earth to strengthen those whose hearts are fully committed to him.", testament: "Old" },
+            
+            // Nehemiah
+            { reference: "Nehemiah 8:10", text: "Do not grieve, for the joy of the Lord is your strength.", testament: "Old" },
+            
+            // Job
+            { reference: "Job 19:25", text: "I know that my redeemer lives, and that in the end he will stand on the earth.", testament: "Old" },
+            
+            // Psalms
+            { reference: "Psalm 1:1-2", text: "Blessed is the one who does not walk in step with the wicked or stand in the way that sinners take or sit in the company of mockers, but whose delight is in the law of the Lord, and who meditates on his law day and night.", testament: "Old" },
+            { reference: "Psalm 16:11", text: "You make known to me the path of life; you will fill me with joy in your presence, with eternal pleasures at your right hand.", testament: "Old" },
+            { reference: "Psalm 18:2", text: "The Lord is my rock, my fortress and my deliverer; my God is my rock, in whom I take refuge, my shield and the horn of my salvation, my stronghold.", testament: "Old" },
+            { reference: "Psalm 19:1", text: "The heavens declare the glory of God; the skies proclaim the work of his hands.", testament: "Old" },
+            { reference: "Psalm 19:14", text: "May these words of my mouth and this meditation of my heart be pleasing in your sight, Lord, my Rock and my Redeemer.", testament: "Old" },
+            { reference: "Psalm 23:1", text: "The Lord is my shepherd, I lack nothing.", testament: "Old" },
+            { reference: "Psalm 23:4", text: "Even though I walk through the darkest valley, I will fear no evil, for you are with me; your rod and your staff, they comfort me.", testament: "Old" },
+            { reference: "Psalm 27:1", text: "The Lord is my light and my salvation—whom shall I fear? The Lord is the stronghold of my life—of whom shall I be afraid?", testament: "Old" },
+            { reference: "Psalm 28:7", text: "The Lord is my strength and my shield; my heart trusts in him, and he helps me. My heart leaps for joy, and with my song I praise him.", testament: "Old" },
+            { reference: "Psalm 29:11", text: "The Lord gives strength to his people; the Lord blesses his people with peace.", testament: "Old" },
+            { reference: "Psalm 30:5", text: "For his anger lasts only a moment, but his favor lasts a lifetime; weeping may stay for the night, but rejoicing comes in the morning.", testament: "Old" },
+            { reference: "Psalm 32:8", text: "I will instruct you and teach you in the way you should go; I will counsel you with my loving eye on you.", testament: "Old" },
+            { reference: "Psalm 34:8", text: "Taste and see that the Lord is good; blessed is the one who takes refuge in him.", testament: "Old" },
+            { reference: "Psalm 34:18", text: "The Lord is close to the brokenhearted and saves those who are crushed in spirit.", testament: "Old" },
+            { reference: "Psalm 37:4", text: "Take delight in the Lord, and he will give you the desires of your heart.", testament: "Old" },
+            { reference: "Psalm 37:5", text: "Commit your way to the Lord; trust in him and he will do this.", testament: "Old" },
+            { reference: "Psalm 40:1", text: "I waited patiently for the Lord; he turned to me and heard my cry.", testament: "Old" },
+            { reference: "Psalm 42:1", text: "As the deer pants for streams of water, so my soul pants for you, my God.", testament: "Old" },
+            { reference: "Psalm 46:1", text: "God is our refuge and strength, an ever-present help in trouble.", testament: "Old" },
+            { reference: "Psalm 46:10", text: "Be still, and know that I am God; I will be exalted among the nations, I will be exalted in the earth.", testament: "Old" },
+            { reference: "Psalm 51:10", text: "Create in me a pure heart, O God, and renew a steadfast spirit within me.", testament: "Old" },
+            { reference: "Psalm 55:22", text: "Cast your cares on the Lord and he will sustain you; he will never let the righteous be shaken.", testament: "Old" },
+            { reference: "Psalm 62:5", text: "Yes, my soul, find rest in God; my hope comes from him.", testament: "Old" },
+            { reference: "Psalm 63:1", text: "You, God, are my God, earnestly I seek you; I thirst for you, my whole being longs for you, in a dry and parched land where there is no water.", testament: "Old" },
+            { reference: "Psalm 73:26", text: "My flesh and my heart may fail, but God is the strength of my heart and my portion forever.", testament: "Old" },
+            { reference: "Psalm 84:11", text: "For the Lord God is a sun and shield; the Lord bestows favor and honor; no good thing does he withhold from those whose walk is blameless.", testament: "Old" },
+            { reference: "Psalm 86:5", text: "You, Lord, are forgiving and good, abounding in love to all who call to you.", testament: "Old" },
+            { reference: "Psalm 90:12", text: "Teach us to number our days, that we may gain a heart of wisdom.", testament: "Old" },
+            { reference: "Psalm 91:1-2", text: "Whoever dwells in the shelter of the Most High will rest in the shadow of the Almighty. I will say of the Lord, He is my refuge and my fortress, my God, in whom I trust.", testament: "Old" },
+            { reference: "Psalm 91:11", text: "For he will command his angels concerning you to guard you in all your ways.", testament: "Old" },
+            { reference: "Psalm 94:19", text: "When anxiety was great within me, your consolation brought me joy.", testament: "Old" },
+            { reference: "Psalm 95:6", text: "Come, let us bow down in worship, let us kneel before the Lord our Maker.", testament: "Old" },
+            { reference: "Psalm 100:5", text: "For the Lord is good and his love endures forever; his faithfulness continues through all generations.", testament: "Old" },
+            { reference: "Psalm 103:2-3", text: "Praise the Lord, my soul, and forget not all his benefits—who forgives all your sins and heals all your diseases.", testament: "Old" },
+            { reference: "Psalm 103:8", text: "The Lord is compassionate and gracious, slow to anger, abounding in love.", testament: "Old" },
+            { reference: "Psalm 103:12", text: "As far as the east is from the west, so far has he removed our transgressions from us.", testament: "Old" },
+            { reference: "Psalm 107:1", text: "Give thanks to the Lord, for he is good; his love endures forever.", testament: "Old" },
+            { reference: "Psalm 118:6", text: "The Lord is with me; I will not be afraid. What can mere mortals do to me?", testament: "Old" },
+            { reference: "Psalm 118:24", text: "The Lord has done it this very day; let us rejoice today and be glad.", testament: "Old" },
+            { reference: "Psalm 119:105", text: "Your word is a lamp for my feet, a light on my path.", testament: "Old" },
+            { reference: "Psalm 121:1-2", text: "I lift up my eyes to the mountains—where does my help come from? My help comes from the Lord, the Maker of heaven and earth.", testament: "Old" },
+            { reference: "Psalm 126:3", text: "The Lord has done great things for us, and we are filled with joy.", testament: "Old" },
+            { reference: "Psalm 127:3", text: "Children are a heritage from the Lord, offspring a reward from him.", testament: "Old" },
+            { reference: "Psalm 139:14", text: "I praise you because I am fearfully and wonderfully made; your works are wonderful, I know that full well.", testament: "Old" },
+            { reference: "Psalm 139:23-24", text: "Search me, God, and know my heart; test me and know my anxious thoughts. See if there is any offensive way in me, and lead me in the way everlasting.", testament: "Old" },
+            { reference: "Psalm 143:8", text: "Let the morning bring me word of your unfailing love, for I have put my trust in you. Show me the way I should go, for to you I entrust my life.", testament: "Old" },
+            { reference: "Psalm 145:9", text: "The Lord is good to all; he has compassion on all he has made.", testament: "Old" },
+            { reference: "Psalm 145:18", text: "The Lord is near to all who call on him, to all who call on him in truth.", testament: "Old" },
+            { reference: "Psalm 147:3", text: "He heals the brokenhearted and binds up their wounds.", testament: "Old" },
+            
+            // Proverbs
+            { reference: "Proverbs 3:5-6", text: "Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight.", testament: "Old" },
+            { reference: "Proverbs 3:9", text: "Honor the Lord with your wealth, with the firstfruits of all your crops.", testament: "Old" },
+            { reference: "Proverbs 4:23", text: "Above all else, guard your heart, for everything you do flows from it.", testament: "Old" },
+            { reference: "Proverbs 10:12", text: "Hatred stirs up conflict, but love covers over all wrongs.", testament: "Old" },
+            { reference: "Proverbs 11:25", text: "A generous person will prosper; whoever refreshes others will be refreshed.", testament: "Old" },
+            { reference: "Proverbs 12:25", text: "Anxiety weighs down the heart, but a kind word cheers it up.", testament: "Old" },
+            { reference: "Proverbs 13:20", text: "Walk with the wise and become wise, for a companion of fools suffers harm.", testament: "Old" },
+            { reference: "Proverbs 15:1", text: "A gentle answer turns away wrath, but a harsh word stirs up anger.", testament: "Old" },
+            { reference: "Proverbs 16:3", text: "Commit to the Lord whatever you do, and he will establish your plans.", testament: "Old" },
+            { reference: "Proverbs 16:9", text: "In their hearts humans plan their course, but the Lord establishes their steps.", testament: "Old" },
+            { reference: "Proverbs 17:17", text: "A friend loves at all times, and a brother is born for a time of adversity.", testament: "Old" },
+            { reference: "Proverbs 18:10", text: "The name of the Lord is a fortified tower; the righteous run to it and are safe.", testament: "Old" },
+            { reference: "Proverbs 19:21", text: "Many are the plans in a person's heart, but it is the Lord's purpose that prevails.", testament: "Old" },
+            { reference: "Proverbs 22:6", text: "Start children off on the way they should go, and even when they are old they will not turn from it.", testament: "Old" },
+            { reference: "Proverbs 27:17", text: "As iron sharpens iron, so one person sharpens another.", testament: "Old" },
+            { reference: "Proverbs 31:25", text: "She is clothed with strength and dignity; she can laugh at the days to come.", testament: "Old" },
+            
+            // Ecclesiastes
+            { reference: "Ecclesiastes 3:1", text: "There is a time for everything, and a season for every activity under the heavens.", testament: "Old" },
+            { reference: "Ecclesiastes 4:9", text: "Two are better than one, because they have a good return for their labor.", testament: "Old" },
+            
+            // Isaiah
+            { reference: "Isaiah 26:3", text: "You will keep in perfect peace those whose minds are steadfast, because they trust in you.", testament: "Old" },
+            { reference: "Isaiah 40:8", text: "The grass withers and the flowers fall, but the word of our God endures forever.", testament: "Old" },
+            { reference: "Isaiah 40:29", text: "He gives strength to the weary and increases the power of the weak.", testament: "Old" },
+            { reference: "Isaiah 40:31", text: "But those who hope in the Lord will renew their strength. They will soar on wings like eagles; they will run and not grow weary, they will walk and not be faint.", testament: "Old" },
+            { reference: "Isaiah 41:10", text: "So do not fear, for I am with you; do not be dismayed, for I am your God. I will strengthen you and help you; I will uphold you with my righteous right hand.", testament: "Old" },
+            { reference: "Isaiah 41:13", text: "For I am the Lord your God who takes hold of your right hand and says to you, Do not fear; I will help you.", testament: "Old" },
+            { reference: "Isaiah 43:2", text: "When you pass through the waters, I will be with you; and when you pass through the rivers, they will not sweep over you. When you walk through the fire, you will not be burned; the flames will not set you ablaze.", testament: "Old" },
+            { reference: "Isaiah 53:5", text: "But he was pierced for our transgressions, he was crushed for our iniquities; the punishment that brought us peace was on him, and by his wounds we are healed.", testament: "Old" },
+            { reference: "Isaiah 54:10", text: "Though the mountains be shaken and the hills be removed, yet my unfailing love for you will not be shaken nor my covenant of peace be removed, says the Lord, who has compassion on you.", testament: "Old" },
+            { reference: "Isaiah 55:8-9", text: "For my thoughts are not your thoughts, neither are your ways my ways, declares the Lord. As the heavens are higher than the earth, so are my ways higher than your ways and my thoughts than your thoughts.", testament: "Old" },
+            { reference: "Isaiah 58:11", text: "The Lord will guide you always; he will satisfy your needs in a sun-scorched land and will strengthen your frame. You will be like a well-watered garden, like a spring whose waters never fail.", testament: "Old" },
+            { reference: "Isaiah 64:8", text: "Yet you, Lord, are our Father. We are the clay, you are the potter; we are all the work of your hand.", testament: "Old" },
+            
+            // Jeremiah
+            { reference: "Jeremiah 17:7", text: "But blessed is the one who trusts in the Lord, whose confidence is in him.", testament: "Old" },
+            { reference: "Jeremiah 29:11", text: "For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you, plans to give you hope and a future.", testament: "Old" },
+            { reference: "Jeremiah 31:3", text: "The Lord appeared to us in the past, saying: I have loved you with an everlasting love; I have drawn you with unfailing kindness.", testament: "Old" },
+            { reference: "Jeremiah 32:27", text: "I am the Lord, the God of all mankind. Is anything too hard for me?", testament: "Old" },
+            { reference: "Jeremiah 33:3", text: "Call to me and I will answer you and tell you great and unsearchable things you do not know.", testament: "Old" },
+            
+            // Lamentations
+            { reference: "Lamentations 3:22-23", text: "Because of the Lord's great love we are not consumed, for his compassions never fail. They are new every morning; great is your faithfulness.", testament: "Old" },
+            
+            // Daniel
+            { reference: "Daniel 2:20", text: "Praise be to the name of God for ever and ever; wisdom and power are his.", testament: "Old" },
+            
+            // Micah
+            { reference: "Micah 6:8", text: "He has shown you, O mortal, what is good. And what does the Lord require of you? To act justly and to love mercy and to walk humbly with your God.", testament: "Old" },
+            { reference: "Micah 7:7", text: "But as for me, I watch in hope for the Lord, I wait for God my Savior; my God will hear me.", testament: "Old" },
+            
+            // Nahum
+            { reference: "Nahum 1:7", text: "The Lord is good, a refuge in times of trouble. He cares for those who trust in him.", testament: "Old" },
+            
+            // Habakkuk
+            { reference: "Habakkuk 3:19", text: "The Sovereign Lord is my strength; he makes my feet like the feet of a deer, he enables me to tread on the heights.", testament: "Old" },
+            
+            // Zephaniah
+            { reference: "Zephaniah 3:17", text: "The Lord your God is with you, the Mighty Warrior who saves. He will take great delight in you; in his love he will no longer rebuke you, but will rejoice over you with singing.", testament: "Old" },
+            
+            // Malachi
+            { reference: "Malachi 3:10", text: "Bring the whole tithe into the storehouse, that there may be food in my house. Test me in this, says the Lord Almighty, and see if I will not throw open the floodgates of heaven and pour out so much blessing that there will not be room enough to store it.", testament: "Old" },
+            
+            // New Testament - Matthew
+            { reference: "Matthew 5:3", text: "Blessed are the poor in spirit, for theirs is the kingdom of heaven.", testament: "New" },
+            { reference: "Matthew 5:6", text: "Blessed are those who hunger and thirst for righteousness, for they will be filled.", testament: "New" },
+            { reference: "Matthew 5:8", text: "Blessed are the pure in heart, for they will see God.", testament: "New" },
+            { reference: "Matthew 5:9", text: "Blessed are the peacemakers, for they will be called children of God.", testament: "New" },
+            { reference: "Matthew 5:14", text: "You are the light of the world. A town built on a hill cannot be hidden.", testament: "New" },
+            { reference: "Matthew 5:16", text: "In the same way, let your light shine before others, that they may see your good deeds and glorify your Father in heaven.", testament: "New" },
+            { reference: "Matthew 6:9-10", text: "This, then, is how you should pray: Our Father in heaven, hallowed be your name, your kingdom come, your will be done, on earth as it is in heaven.", testament: "New" },
+            { reference: "Matthew 6:25", text: "Therefore I tell you, do not worry about your life, what you will eat or drink; or about your body, what you will wear. Is not life more than food, and the body more than clothes?", testament: "New" },
+            { reference: "Matthew 6:33", text: "But seek first his kingdom and his righteousness, and all these things will be given to you as well.", testament: "New" },
+            { reference: "Matthew 6:34", text: "Therefore do not worry about tomorrow, for tomorrow will worry about itself. Each day has enough trouble of its own.", testament: "New" },
+            { reference: "Matthew 7:7", text: "Ask and it will be given to you; seek and you will find; knock and the door will be opened to you.", testament: "New" },
+            { reference: "Matthew 7:12", text: "So in everything, do to others what you would have them do to you, for this sums up the Law and the Prophets.", testament: "New" },
+            { reference: "Matthew 11:28", text: "Come to me, all you who are weary and burdened, and I will give you rest.", testament: "New" },
+            { reference: "Matthew 11:29", text: "Take my yoke upon you and learn from me, for I am gentle and humble in heart, and you will find rest for your souls.", testament: "New" },
+            { reference: "Matthew 19:26", text: "Jesus looked at them and said, With man this is impossible, but with God all things are possible.", testament: "New" },
+            { reference: "Matthew 28:19-20", text: "Therefore go and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit, and teaching them to obey everything I have commanded you. And surely I am with you always, to the very end of the age.", testament: "New" },
+            
+            // Mark
+            { reference: "Mark 9:23", text: "Everything is possible for one who believes.", testament: "New" },
+            { reference: "Mark 10:27", text: "Jesus looked at them and said, With man this is impossible, but not with God; all things are possible with God.", testament: "New" },
+            { reference: "Mark 11:24", text: "Therefore I tell you, whatever you ask for in prayer, believe that you have received it, and it will be yours.", testament: "New" },
+            { reference: "Mark 12:30-31", text: "Love the Lord your God with all your heart and with all your soul and with all your mind and with all your strength. The second is this: Love your neighbor as yourself. There is no commandment greater than these.", testament: "New" },
+            
+            // Luke
+            { reference: "Luke 1:37", text: "For no word from God will ever fail.", testament: "New" },
+            { reference: "Luke 6:31", text: "Do to others as you would have them do to you.", testament: "New" },
+            { reference: "Luke 6:38", text: "Give, and it will be given to you. A good measure, pressed down, shaken together and running over, will be poured into your lap. For with the measure you use, it will be measured to you.", testament: "New" },
+            { reference: "Luke 10:27", text: "Love the Lord your God with all your heart and with all your soul and with all your strength and with all your mind; and, Love your neighbor as yourself.", testament: "New" },
+            { reference: "Luke 12:7", text: "Indeed, the very hairs of your head are all numbered. Don't be afraid; you are worth more than many sparrows.", testament: "New" },
+            
+            // John
+            { reference: "John 1:1", text: "In the beginning was the Word, and the Word was with God, and the Word was God.", testament: "New" },
+            { reference: "John 1:12", text: "Yet to all who did receive him, to those who believed in his name, he gave the right to become children of God.", testament: "New" },
+            { reference: "John 3:16", text: "For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life.", testament: "New" },
+            { reference: "John 3:17", text: "For God did not send his Son into the world to condemn the world, but to save the world through him.", testament: "New" },
+            { reference: "John 4:24", text: "God is spirit, and his worshipers must worship in the Spirit and in truth.", testament: "New" },
+            { reference: "John 8:12", text: "When Jesus spoke again to the people, he said, I am the light of the world. Whoever follows me will never walk in darkness, but will have the light of life.", testament: "New" },
+            { reference: "John 8:32", text: "Then you will know the truth, and the truth will set you free.", testament: "New" },
+            { reference: "John 10:10", text: "The thief comes only to steal and kill and destroy; I have come that they may have life, and have it to the full.", testament: "New" },
+            { reference: "John 11:25", text: "Jesus said to her, I am the resurrection and the life. The one who believes in me will live, even though they die.", testament: "New" },
+            { reference: "John 13:34", text: "A new command I give you: Love one another. As I have loved you, so you must love one another.", testament: "New" },
+            { reference: "John 14:1", text: "Do not let your hearts be troubled. You believe in God; believe also in me.", testament: "New" },
+            { reference: "John 14:2-3", text: "My Father's house has many rooms; if that were not so, would I have told you that I am going there to prepare a place for you? And if I go and prepare a place for you, I will come back and take you to be with me that you also may be where I am.", testament: "New" },
+            { reference: "John 14:6", text: "Jesus answered, I am the way and the truth and the life. No one comes to the Father except through me.", testament: "New" },
+            { reference: "John 14:27", text: "Peace I leave with you; my peace I give you. I do not give to you as the world gives. Do not let your hearts be troubled and do not be afraid.", testament: "New" },
+            { reference: "John 15:5", text: "I am the vine; you are the branches. If you remain in me and I in you, you will bear much fruit; apart from me you can do nothing.", testament: "New" },
+            { reference: "John 15:13", text: "Greater love has no one than this: to lay down one's life for one's friends.", testament: "New" },
+            { reference: "John 16:33", text: "I have told you these things, so that in me you may have peace. In this world you will have trouble. But take heart! I have overcome the world.", testament: "New" },
+            
+            // Acts
+            { reference: "Acts 1:8", text: "But you will receive power when the Holy Spirit comes on you; and you will be my witnesses in Jerusalem, and in all Judea and Samaria, and to the ends of the earth.", testament: "New" },
+            { reference: "Acts 2:38", text: "Peter replied, Repent and be baptized, every one of you, in the name of Jesus Christ for the forgiveness of your sins. And you will receive the gift of the Holy Spirit.", testament: "New" },
+            { reference: "Acts 4:12", text: "Salvation is found in no one else, for there is no other name under heaven given to mankind by which we must be saved.", testament: "New" },
+            { reference: "Acts 16:31", text: "Believe in the Lord Jesus, and you will be saved—you and your household.", testament: "New" },
+            { reference: "Acts 20:35", text: "In everything I did, I showed you that by this kind of hard work we must help the weak, remembering the words the Lord Jesus himself said: It is more blessed to give than to receive.", testament: "New" },
+            
+            // Romans
+            { reference: "Romans 1:16", text: "For I am not ashamed of the gospel, because it is the power of God that brings salvation to everyone who believes: first to the Jew, then to the Gentile.", testament: "New" },
+            { reference: "Romans 3:23", text: "For all have sinned and fall short of the glory of God.", testament: "New" },
+            { reference: "Romans 5:8", text: "But God demonstrates his own love for us in this: While we were still sinners, Christ died for us.", testament: "New" },
+            { reference: "Romans 6:23", text: "For the wages of sin is death, but the gift of God is eternal life in Christ Jesus our Lord.", testament: "New" },
+            { reference: "Romans 8:1", text: "Therefore, there is now no condemnation for those who are in Christ Jesus.", testament: "New" },
+            { reference: "Romans 8:28", text: "And we know that in all things God works for the good of those who love him, who have been called according to his purpose.", testament: "New" },
+            { reference: "Romans 8:31", text: "What, then, shall we say in response to these things? If God is for us, who can be against us?", testament: "New" },
+            { reference: "Romans 8:38-39", text: "For I am convinced that neither death nor life, neither angels nor demons, neither the present nor the future, nor any powers, neither height nor depth, nor anything else in all creation, will be able to separate us from the love of God that is in Christ Jesus our Lord.", testament: "New" },
+            { reference: "Romans 10:9", text: "If you declare with your mouth, Jesus is Lord, and believe in your heart that God raised him from the dead, you will be saved.", testament: "New" },
+            { reference: "Romans 10:13", text: "For everyone who calls on the name of the Lord will be saved.", testament: "New" },
+            { reference: "Romans 12:1", text: "Therefore, I urge you, brothers and sisters, in view of God's mercy, to offer your bodies as a living sacrifice, holy and pleasing to God—this is your true and proper worship.", testament: "New" },
+            { reference: "Romans 12:2", text: "Do not conform to the pattern of this world, but be transformed by the renewing of your mind. Then you will be able to test and approve what God's will is—his good, pleasing and perfect will.", testament: "New" },
+            { reference: "Romans 12:12", text: "Be joyful in hope, patient in affliction, faithful in prayer.", testament: "New" },
+            { reference: "Romans 15:13", text: "May the God of hope fill you with all joy and peace as you trust in him, so that you may overflow with hope by the power of the Holy Spirit.", testament: "New" },
+            
+            // 1 Corinthians
+            { reference: "1 Corinthians 6:19-20", text: "Do you not know that your bodies are temples of the Holy Spirit, who is in you, whom you have received from God? You are not your own; you were bought at a price. Therefore honor God with your bodies.", testament: "New" },
+            { reference: "1 Corinthians 10:13", text: "No temptation has overtaken you except what is common to mankind. And God is faithful; he will not let you be tempted beyond what you can bear. But when you are tempted, he will also provide a way out so that you can endure it.", testament: "New" },
+            { reference: "1 Corinthians 10:31", text: "So whether you eat or drink or whatever you do, do it all for the glory of God.", testament: "New" },
+            { reference: "1 Corinthians 13:4-5", text: "Love is patient, love is kind. It does not envy, it does not boast, it is not proud. It does not dishonor others, it is not self-seeking, it is not easily angered, it keeps no record of wrongs.", testament: "New" },
+            { reference: "1 Corinthians 13:13", text: "And now these three remain: faith, hope and love. But the greatest of these is love.", testament: "New" },
+            { reference: "1 Corinthians 15:57", text: "But thanks be to God! He gives us the victory through our Lord Jesus Christ.", testament: "New" },
+            { reference: "1 Corinthians 16:13", text: "Be on your guard; stand firm in the faith; be courageous; be strong.", testament: "New" },
+            
+            // 2 Corinthians
+            { reference: "2 Corinthians 1:3-4", text: "Praise be to the God and Father of our Lord Jesus Christ, the Father of compassion and the God of all comfort, who comforts us in all our troubles, so that we can comfort those in any trouble with the comfort we ourselves receive from God.", testament: "New" },
+            { reference: "2 Corinthians 4:16", text: "Therefore we do not lose heart. Though outwardly we are wasting away, yet inwardly we are being renewed day by day.", testament: "New" },
+            { reference: "2 Corinthians 5:7", text: "For we live by faith, not by sight.", testament: "New" },
+            { reference: "2 Corinthians 5:17", text: "Therefore, if anyone is in Christ, the new creation has come: The old has gone, the new is here!", testament: "New" },
+            { reference: "2 Corinthians 9:7", text: "Each of you should give what you have decided in your heart to give, not reluctantly or under compulsion, for God loves a cheerful giver.", testament: "New" },
+            { reference: "2 Corinthians 12:9", text: "But he said to me, My grace is sufficient for you, for my power is made perfect in weakness. Therefore I will boast all the more gladly about my weaknesses, so that Christ's power may rest on me.", testament: "New" },
+            
+            // Galatians
+            { reference: "Galatians 2:20", text: "I have been crucified with Christ and I no longer live, but Christ lives in me. The life I now live in the body, I live by faith in the Son of God, who loved me and gave himself for me.", testament: "New" },
+            { reference: "Galatians 5:22-23", text: "But the fruit of the Spirit is love, joy, peace, forbearance, kindness, goodness, faithfulness, gentleness and self-control. Against such things there is no law.", testament: "New" },
+            { reference: "Galatians 6:2", text: "Carry each other's burdens, and in this way you will fulfill the law of Christ.", testament: "New" },
+            { reference: "Galatians 6:9", text: "Let us not become weary in doing good, for at the proper time we will reap a harvest if we do not give up.", testament: "New" },
+            
+            // Ephesians
+            { reference: "Ephesians 1:7", text: "In him we have redemption through his blood, the forgiveness of sins, in accordance with the riches of God's grace.", testament: "New" },
+            { reference: "Ephesians 2:8-9", text: "For it is by grace you have been saved, through faith—and this is not from yourselves, it is the gift of God— not by works, so that no one can boast.", testament: "New" },
+            { reference: "Ephesians 2:10", text: "For we are God's handiwork, created in Christ Jesus to do good works, which God prepared in advance for us to do.", testament: "New" },
+            { reference: "Ephesians 3:20", text: "Now to him who is able to do immeasurably more than all we ask or imagine, according to his power that is at work within us.", testament: "New" },
+            { reference: "Ephesians 4:2", text: "Be completely humble and gentle; be patient, bearing with one another in love.", testament: "New" },
+            { reference: "Ephesians 4:32", text: "Be kind and compassionate to one another, forgiving each other, just as in Christ God forgave you.", testament: "New" },
+            { reference: "Ephesians 5:1-2", text: "Follow God's example, therefore, as dearly loved children and walk in the way of love, just as Christ loved us and gave himself up for us as a fragrant offering and sacrifice to God.", testament: "New" },
+            { reference: "Ephesians 6:10", text: "Finally, be strong in the Lord and in his mighty power.", testament: "New" },
+            
+            // Philippians
+            { reference: "Philippians 1:6", text: "Being confident of this, that he who began a good work in you will carry it on to completion until the day of Christ Jesus.", testament: "New" },
+            { reference: "Philippians 2:3", text: "Do nothing out of selfish ambition or vain conceit. Rather, in humility value others above yourselves.", testament: "New" },
+            { reference: "Philippians 3:13-14", text: "Brothers and sisters, I do not consider myself yet to have taken hold of it. But one thing I do: Forgetting what is behind and straining toward what is ahead, I press on toward the goal to win the prize for which God has called me heavenward in Christ Jesus.", testament: "New" },
+            { reference: "Philippians 4:4", text: "Rejoice in the Lord always. I will say it again: Rejoice!", testament: "New" },
+            { reference: "Philippians 4:6-7", text: "Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God. And the peace of God, which transcends all understanding, will guard your hearts and your minds in Christ Jesus.", testament: "New" },
+            { reference: "Philippians 4:8", text: "Finally, brothers and sisters, whatever is true, whatever is noble, whatever is right, whatever is pure, whatever is lovely, whatever is admirable—if anything is excellent or praiseworthy—think about such things.", testament: "New" },
+            { reference: "Philippians 4:13", text: "I can do all this through him who gives me strength.", testament: "New" },
+            { reference: "Philippians 4:19", text: "And my God will meet all your needs according to the riches of his glory in Christ Jesus.", testament: "New" },
+            
+            // Colossians
+            { reference: "Colossians 3:2", text: "Set your minds on things above, not on earthly things.", testament: "New" },
+            { reference: "Colossians 3:12", text: "Therefore, as God's chosen people, holy and dearly loved, clothe yourselves with compassion, kindness, humility, gentleness and patience.", testament: "New" },
+            { reference: "Colossians 3:13", text: "Bear with each other and forgive one another if any of you has a grievance against someone. Forgive as the Lord forgave you.", testament: "New" },
+            { reference: "Colossians 3:23", text: "Whatever you do, work at it with all your heart, as working for the Lord, not for human masters.", testament: "New" },
+            
+            // 1 Thessalonians
+            { reference: "1 Thessalonians 5:16-18", text: "Rejoice always, pray continually, give thanks in all circumstances; for this is God's will for you in Christ Jesus.", testament: "New" },
+            
+            // 2 Thessalonians
+            { reference: "2 Thessalonians 3:3", text: "But the Lord is faithful, and he will strengthen you and protect you from the evil one.", testament: "New" },
+            
+            // 1 Timothy
+            { reference: "1 Timothy 4:12", text: "Don't let anyone look down on you because you are young, but set an example for the believers in speech, in conduct, in love, in faith and in purity.", testament: "New" },
+            { reference: "1 Timothy 6:6", text: "But godliness with contentment is great gain.", testament: "New" },
+            
+            // 2 Timothy
+            { reference: "2 Timothy 1:7", text: "For the Spirit God gave us does not make us timid, but gives us power, love and self-discipline.", testament: "New" },
+            { reference: "2 Timothy 2:15", text: "Do your best to present yourself to God as one approved, a worker who does not need to be ashamed and who correctly handles the word of truth.", testament: "New" },
+            { reference: "2 Timothy 3:16-17", text: "All Scripture is God-breathed and is useful for teaching, rebuking, correcting and training in righteousness, so that the servant of God may be thoroughly equipped for every good work.", testament: "New" },
+            
+            // Hebrews
+            { reference: "Hebrews 4:12", text: "For the word of God is alive and active. Sharper than any double-edged sword, it penetrates even to dividing soul and spirit, joints and marrow; it judges the thoughts and attitudes of the heart.", testament: "New" },
+            { reference: "Hebrews 4:16", text: "Let us then approach God's throne of grace with confidence, so that we may receive mercy and find grace to help us in our time of need.", testament: "New" },
+            { reference: "Hebrews 10:23", text: "Let us hold unswervingly to the hope we profess, for he who promised is faithful.", testament: "New" },
+            { reference: "Hebrews 11:1", text: "Now faith is confidence in what we hope for and assurance about what we do not see.", testament: "New" },
+            { reference: "Hebrews 12:1", text: "Therefore, since we are surrounded by such a great cloud of witnesses, let us throw off everything that hinders and the sin that so easily entangles. And let us run with perseverance the race marked out for us.", testament: "New" },
+            { reference: "Hebrews 12:2", text: "Fixing our eyes on Jesus, the pioneer and perfecter of faith. For the joy set before him he endured the cross, scorning its shame, and sat down at the right hand of the throne of God.", testament: "New" },
+            { reference: "Hebrews 13:5", text: "Keep your lives free from the love of money and be content with what you have, because God has said, Never will I leave you; never will I forsake you.", testament: "New" },
+            { reference: "Hebrews 13:8", text: "Jesus Christ is the same yesterday and today and forever.", testament: "New" },
+            
+            // James
+            { reference: "James 1:2-3", text: "Consider it pure joy, my brothers and sisters, whenever you face trials of many kinds, because you know that the testing of your faith produces perseverance.", testament: "New" },
+            { reference: "James 1:5", text: "If any of you lacks wisdom, you should ask God, who gives generously to all without finding fault, and it will be given to you.", testament: "New" },
+            { reference: "James 1:12", text: "Blessed is the one who perseveres under trial because, having stood the test, that person will receive the crown of life that the Lord has promised to those who love him.", testament: "New" },
+            { reference: "James 1:17", text: "Every good and perfect gift is from above, coming down from the Father of the heavenly lights, who does not change like shifting shadows.", testament: "New" },
+            { reference: "James 4:7", text: "Submit yourselves, then, to God. Resist the devil, and he will flee from you.", testament: "New" },
+            { reference: "James 4:8", text: "Come near to God and he will come near to you. Wash your hands, you sinners, and purify your hearts, you double-minded.", testament: "New" },
+            { reference: "James 5:16", text: "Therefore confess your sins to each other and pray for each other so that you may be healed. The prayer of a righteous person is powerful and effective.", testament: "New" },
+            
+            // 1 Peter
+            { reference: "1 Peter 1:3", text: "Praise be to the God and Father of our Lord Jesus Christ! In his great mercy he has given us new birth into a living hope through the resurrection of Jesus Christ from the dead.", testament: "New" },
+            { reference: "1 Peter 2:9", text: "But you are a chosen people, a royal priesthood, a holy nation, God's special possession, that you may declare the praises of him who called you out of darkness into his wonderful light.", testament: "New" },
+            { reference: "1 Peter 3:15", text: "But in your hearts revere Christ as Lord. Always be prepared to give an answer to everyone who asks you to give the reason for the hope that you have. But do this with gentleness and respect.", testament: "New" },
+            { reference: "1 Peter 5:6-7", text: "Humble yourselves, therefore, under God's mighty hand, that he may lift you up in due time. Cast all your anxiety on him because he cares for you.", testament: "New" },
+            { reference: "1 Peter 5:10", text: "And the God of all grace, who called you to his eternal glory in Christ, after you have suffered a little while, will himself restore you and make you strong, firm and steadfast.", testament: "New" },
+            
+            // 2 Peter
+            { reference: "2 Peter 1:3", text: "His divine power has given us everything we need for a godly life through our knowledge of him who called us by his own glory and goodness.", testament: "New" },
+            { reference: "2 Peter 3:9", text: "The Lord is not slow in keeping his promise, as some understand slowness. Instead he is patient with you, not wanting anyone to perish, but everyone to come to repentance.", testament: "New" },
+            
+            // 1 John
+            { reference: "1 John 1:9", text: "If we confess our sins, he is faithful and just and will forgive us our sins and purify us from all unrighteousness.", testament: "New" },
+            { reference: "1 John 3:1", text: "See what great love the Father has lavished on us, that we should be called children of God! And that is what we are!", testament: "New" },
+            { reference: "1 John 4:4", text: "You, dear children, are from God and have overcome them, because the one who is in you is greater than the one who is in the world.", testament: "New" },
+            { reference: "1 John 4:7", text: "Dear friends, let us love one another, for love comes from God. Everyone who loves has been born of God and knows God.", testament: "New" },
+            { reference: "1 John 4:8", text: "Whoever does not love does not know God, because God is love.", testament: "New" },
+            { reference: "1 John 4:9-10", text: "This is how God showed his love among us: He sent his one and only Son into the world that we might live through him. This is love: not that we loved God, but that he loved us and sent his Son as an atoning sacrifice for our sins.", testament: "New" },
+            { reference: "1 John 4:16", text: "And so we know and rely on the love God has for us. God is love. Whoever lives in love lives in God, and God in them.", testament: "New" },
+            { reference: "1 John 4:18", text: "There is no fear in love. But perfect love drives out fear, because fear has to do with punishment. The one who fears is not made perfect in love.", testament: "New" },
+            { reference: "1 John 4:19", text: "We love because he first loved us.", testament: "New" },
+            { reference: "1 John 5:14", text: "This is the confidence we have in approaching God: that if we ask anything according to his will, he hears us.", testament: "New" },
+            
+            // 3 John
+            { reference: "3 John 1:2", text: "Dear friend, I pray that you may enjoy good health and that all may go well with you, even as your soul is getting along well.", testament: "New" },
+            
+            // Jude
+            { reference: "Jude 1:24-25", text: "To him who is able to keep you from stumbling and to present you before his glorious presence without fault and with great joy— to the only God our Savior be glory, majesty, power and authority, through Jesus Christ our Lord, before all ages, now and forevermore! Amen.", testament: "New" },
+            
+            // Revelation
+            { reference: "Revelation 3:20", text: "Here I am! I stand at the door and knock. If anyone hears my voice and opens the door, I will come in and eat with that person, and they with me.", testament: "New" },
+            { reference: "Revelation 21:4", text: "He will wipe every tear from their eyes. There will be no more death or mourning or crying or pain, for the old order of things has passed away.", testament: "New" }
+        ];
+
+        function getVerse() {
+            const container = document.getElementById('verseContainer');
+            const button = document.getElementById('verseButton');
+            
+            // Add loading state
+            button.classList.add('loading');
+            
+            // Get random verse
+            const randomVerse = verses[Math.floor(Math.random() * verses.length)];
+            
+            // Simulate a brief loading time for better UX
+            setTimeout(() => {
+                container.innerHTML = `
+                    <div class="verse-reference">${randomVerse.reference}</div>
+                    <div class="verse-text">"${randomVerse.text}"</div>
+                `;
+                
+                button.classList.remove('loading');
+            }, 300);
+        }
+    </script>
+</body>
+</html>
