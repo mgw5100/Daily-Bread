@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Support the Ministry - Daily Bread</title>
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: linear-gradient(180deg, 
+                rgba(245, 222, 179, 0.4) 0%, 
+                rgba(255, 248, 220, 0.6) 50%, 
+                rgba(245, 222, 179, 0.4) 100%),
+                repeating-linear-gradient(90deg,
+                    #f5deb3 0px,
+                    #f0e68c 2px,
+                    #daa520 3px,
+                    #f5deb3 4px,
+                    #fff8dc 8px,
+                    #f5deb3 12px
+                );
+            background-size: 100% 100%, 4px 100%;
+            animation: wheat-sway 3s ease-in-out infinite;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            -webkit-font-smoothing: antialiased;
+            position: relative;
+        }
+        
+        body::after {
+            content: 'Genesis • Exodus • Leviticus • Numbers • Deuteronomy • Joshua • Judges • Ruth • 1 Samuel • 2 Samuel • 1 Kings • 2 Kings • 1 Chronicles • 2 Chronicles • Ezra • Nehemiah • Esther';
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 95%;
+            max-width: 550px;
+            text-align: center;
+            font-size: 9px;
+            color: rgba(139, 115, 85, 0.5);
+            font-family: 'Cinzel', serif;
+            pointer-events: none;
+            z-index: 0;
+            line-height: 1.4;
+        }
+        
+        .bible-books-left {
+            position: fixed;
+            left: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 80px;
+            text-align: center;
+            font-size: 9px;
+            color: rgba(139, 115, 85, 0.5);
+            font-family: 'Cinzel', serif;
+            pointer-events: none;
+            z-index: 0;
+            line-height: 1.5;
+        }
+        
+        .bible-books-right {
+            position: fixed;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 80px;
+            text-align: center;
+            font-size: 9px;
+            color: rgba(139, 115, 85, 0.5);
+            font-family: 'Cinzel', serif;
+            pointer-events: none;
+            z-index: 0;
+            line-height: 1.5;
+        }
+        
+        .bible-books-bottom {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 95%;
+            max-width: 550px;
+            text-align: center;
+            font-size: 9px;
+            color: rgba(139, 115, 85, 0.5);
+            font-family: 'Cinzel', serif;
+            pointer-events: none;
+            z-index: 0;
+            line-height: 1.4;
+        }
+
+        @keyframes wheat-sway {
+            0%, 100% {
+                background-position: 0 0, 0 0;
+            }
+            50% {
+                background-position: 0 0, 2px 0;
+            }
+        }
+
+        .container {
+            max-width: 550px;
+            width: 100%;
+            background: rgba(245, 238, 220, 0.95);
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border: 3px solid #0C4B33;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-title {
+            font-size: 28px;
+            color: #5a4a3a;
+            margin-bottom: 15px;
+            font-weight: normal;
+            letter-spacing: 1px;
+            font-family: 'Cinzel', serif;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #7a6a5a;
+            margin-bottom: 35px;
+            font-family: 'Cinzel', serif;
+            font-style: italic;
+        }
+
+        .ministry-option {
+            background: linear-gradient(135deg, 
+                rgba(250, 245, 230, 0.98) 0%, 
+                rgba(245, 238, 220, 0.98) 100%);
+            border: 2px solid #d4c4a8;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .ministry-option:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            border-color: #0C4B33;
+        }
+
+        .ministry-name {
+            font-size: 22px;
+            color: #3a2a1a;
+            margin-bottom: 10px;
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+        }
+
+        .ministry-description {
+            font-size: 14px;
+            color: #5a4a3a;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-family: 'Georgia', serif;
+        }
+
+        .donate-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #0C4B33 0%, #084028 100%);
+            color: white;
+            text-decoration: none;
+            padding: 14px 35px;
+            font-size: 16px;
+            border-radius: 25px;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(12, 75, 51, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .donate-button:hover {
+            background: linear-gradient(135deg, #0f5c3f 0%, #0a4d31 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(12, 75, 51, 0.4);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #5a4a3a;
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-size: 14px;
+            padding: 10px 20px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: rgba(12, 75, 51, 0.1);
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            .page-title {
+                font-size: 24px;
+            }
+            
+            .ministry-name {
+                font-size: 20px;
+            }
+            
+            .ministry-description {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bible-books-left">Job<br>Psalms<br>Proverbs<br>Ecclesiastes<br>Song of<br>Solomon<br>Isaiah<br>Jeremiah<br>Lamentations<br>Ezekiel<br>Daniel<br>Hosea<br>Joel<br>Amos</div>
+    <div class="bible-books-right">Obadiah<br>Jonah<br>Micah<br>Nahum<br>Habakkuk<br>Zephaniah<br>Haggai<br>Zechariah<br>Malachi<br>Matthew<br>Mark<br>Luke<br>John<br>Acts</div>
+    <div class="bible-books-bottom">Romans • 1 Corinthians • 2 Corinthians • Galatians • Ephesians • Philippians • Colossians • 1 Thessalonians • 2 Thessalonians • 1 Timothy • 2 Timothy • Titus • Philemon • Hebrews • James • 1 Peter • 2 Peter • 1 John • 2 John • 3 John • Jude • Revelation</div>
+    
+    <div class="container">
+        <h1 class="page-title">✟ Support the Ministry</h1>
+        <p class="subtitle">"Give, and it will be given to you" - Luke 6:38</p>
+
+        <div class="ministry-option">
+            <div class="ministry-name">Global Christian Relief</div>
+            <div class="ministry-description">Providing humanitarian aid and sharing the Gospel with persecuted Christians and vulnerable communities worldwide.</div>
+            <a href="https://give.globalchristianrelief.org/give/474027/?gad_source=1&gad_campaignid=22306822469&gbraid=0AAAAApM2jZc_6567AfUNJgOdJnJgRdigH&gclid=CjwKCAiAqKbMBhBmEiwAZ3UboH92QbvNKcCWl48AjL_Z-lTAb67b8p-MqEM7auMzNO0ESRyapFvdsBoC3K8QAvD_BwE#!/donation/checkout?utm_source=paid&utm_medium=search&c_src=2502SRP4&c_src2=2502SRP4-SRP1" target="_blank" class="donate-button">Give Now</a>
+        </div>
+
+        <div class="ministry-option">
+            <div class="ministry-name">A21</div>
+            <div class="ministry-description">Fighting human trafficking and exploitation by rescuing victims, preventing injustice, and restoring survivors to wholeness.</div>
+            <a href="https://www.a21.org/content/donate/grlpag#page-14119" target="_blank" class="donate-button">Give Now</a>
+        </div>
+
+        <div class="ministry-option">
+            <div class="ministry-name">The Joshua Fund</div>
+            <div class="ministry-description">Blessing Israel and her neighbors in the name of Jesus by providing humanitarian relief and sharing God's love in the Middle East.</div>
+            <a href="https://joshuafund.com/give/donate/?utm_source=google&utm_medium=cpc&utm_campaign=21553182920&utm_term=&utm_content=&gad_source=1&gad_campaignid=21728806507&gbraid=0AAAAACneG-vuu7lCiLIXl5AC85Zp8Vixc&gclid=CjwKCAiAqKbMBhBmEiwAZ3UboMRryeDLZ3GHPjVkxSRYy65bxmlonl5KaRiALjr05nhoKdaxfCvi0hoCDfcQAvD_BwE" target="_blank" class="donate-button">Give Now</a>
+        </div>
+
+        <a href="index.html" class="back-link">← Back to Daily Bread</a>
+    </div>
+</body>
+</html>
